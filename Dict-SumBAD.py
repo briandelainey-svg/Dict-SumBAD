@@ -53,17 +53,16 @@ items = {
     }
 
 #Main
-start = 0
+
 while True:
-    if start == 0:
+    if not items['Weapon'] and not items['Spell'] and not items['Artifact']:
         new_item(items)
-        start += 1
-    elif start >= 1:
+    else:
+        item(items)
         choice = input('''Are you done?
 1. Yes
 2. No
 >>> ''')
-        item(items)
         if choice =='1':
             break
         choice = input('''What would you like to do?
