@@ -1,16 +1,32 @@
-#Imports
-import pickle
 
 #Functions
 def item(items):
     print('-' * 10)
-    index = 0
-    weapon = list(items['Weapon'].keys())
+    
     spell = list(items['Spell'].keys())
     artifact = list(items['Artifact'].keys())
-    while index < items['Weapon']:
-        print(items['Weapon'] )
-          
+    weapon = list(items['Weapon'].keys())
+    
+    index = 0
+    print('Weapons:')
+    while index < (len(weapon) / 2):
+        print('    ', items['Weapon'] )
+        index += 1
+        
+    index = 0
+    print('Spell:')
+    while index < (len(spell) / 2):
+        print('    ', items['Spell'] )
+        index += 1
+        
+    index = 0
+    print('Artifact:')
+    while index < (len(artifact)):
+        print('    ', items['Artifact'] )
+        index += 1
+        
+    print('-' * 10)
+        
 def new_item(items):
     category = input('''Item Category?
 Weapon
@@ -24,10 +40,10 @@ Artifact
 >>> ''')
     price = input('''How much does it cost?
 >>> ''')
-    items[category]['Name'] = name
+    items[category][name] = {}
     if category == 'Weapon' or category == 'Spell':
-        items[category]['Damage'] = damage
-    items[category]['Value'] = price
+        items[category][name]['Damage'] = damage
+    items[category][name]['Value'] = price
 
 #Dictionary
 items = {
@@ -37,15 +53,17 @@ items = {
     }
 
 #Main
+start = 0
 while True:
-    
-    if not items:
+    if start == 0:
         new_item(items)
-    elif items:
+        start += 1
+    elif start >= 1:
         choice = input('''Are you done?
 1. Yes
 2. No
 >>> ''')
+        item(items)
         if choice =='1':
             break
         choice = input('''What would you like to do?
@@ -54,6 +72,5 @@ while True:
 >>> ''')
         if choice == '1':
             new_item(items)
-        item(items)
 #Save
         
