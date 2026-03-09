@@ -1,4 +1,6 @@
-
+#imports
+import pickle
+from pathlib import Path
 #Functions
 def item(items):
     print('-' * 10)
@@ -10,19 +12,19 @@ def item(items):
     index = 0
     print('Weapons:')
     while index < (len(weapon) / 2):
-        print('    ', items['Weapon'] )
+        print('    ', items['Weapon'])
         index += 1
         
     index = 0
     print('Spell:')
     while index < (len(spell) / 2):
-        print('    ', items['Spell'] )
+        print('    ', items['Spell'])
         index += 1
         
     index = 0
     print('Artifact:')
     while index < (len(artifact)):
-        print('    ', items['Artifact'] )
+        print('    ', items['Artifact'])
         index += 1
         
     print('-' * 10)
@@ -53,7 +55,10 @@ items = {
     }
 
 #Main
-
+data = Path('data.pkl')
+if data.exists():
+    with open('data.pkl', 'rb') as pickle_file:
+        items = pickle.load(pickle_file)
 while True:
     if not items['Weapon'] and not items['Spell'] and not items['Artifact']:
         new_item(items)
@@ -71,5 +76,16 @@ while True:
 >>> ''')
         if choice == '1':
             new_item(items)
+choice = input('''Do you want to save these items?
+1. Yes
+2. No
+>>> ''')
+
 #Save
-        
+if choice == '1':
+    if data.exists():
+        with open('data.pkl', 'wb') as pickle_file:
+            pickle.dump(items, pickle_file)
+    else:
+        with open(file_path, 'wb') as file:
+            pickle.dump(items, file, protocol=pickle.HIGHEST_PROTOCOL)
